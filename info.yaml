@@ -1,6 +1,8 @@
 # SPDX-License-Identifier: Apache-2.0
 # TinyTapeout project information
 
+yaml_version: 2
+
 project:
   name: "FSM Hazard Detection with ECC"
   author: "Rishi Gowda"
@@ -15,8 +17,8 @@ project:
 io:
   # ui_in (dedicated inputs)
   inputs:
-    - { name: "wr_en",      pin: "ui_in[0]" }
-    - { name: "rd_en",      pin: "ui_in[1]" }
+    - { name: "wr_en",       pin: "ui_in[0]" }
+    - { name: "rd_en",       pin: "ui_in[1]" }
     - { name: "err_mode[0]", pin: "ui_in[2]" }
     - { name: "err_mode[1]", pin: "ui_in[3]" }
 
