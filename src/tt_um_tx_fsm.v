@@ -1,5 +1,6 @@
 `default_nettype none
 `timescale 1ns / 1ps
+
 module tt_um_tx_fsm (
     input  wire [7:0] ui_in,    // Dedicated inputs
     output wire [7:0] uo_out,   // Dedicated outputs
@@ -9,26 +10,29 @@ module tt_um_tx_fsm (
     input  wire       ena,      // Always 1 when powered
     input  wire       clk,      // Clock
     input  wire       rst_n     // Active-low reset
+`ifdef USE_POWER_PINS
+    ,input  wire VPWR,
+     input  wire VGND
+`endif
 );
 
   // Unused IOs
   assign uio_out = 8'b0;
   assign uio_oe  = 8'b0;
-  wire _unused = &{ena};
+  wire _unused = &{ena, uio_in};
 
   // Parameters
   parameter DATA_WIDTH = 4, DEPTH = 4;
 
   // Decode inputs
-  wire wr_en          = ui_in[7];
-  wire rd_en          = ui_in[6];
+  wire wr_en               = ui_in[7];
+  wire rd_en               = ui_in[6];
   wire [DATA_WIDTH-1:0] data_in = ui_in[5:2];
-  wire [1:0] err_mode = ui_in[1:0];
+  wire [1:0] err_mode      = ui_in[1:0];
 
   // Outputs
   reg  [DATA_WIDTH-1:0] data_out;
-  reg  ack;
-  reg  nack;
+  reg  ack, nack;
 
   assign uo_out[7]   = ack;
   assign uo_out[6]   = nack;
@@ -71,7 +75,7 @@ module tt_um_tx_fsm (
             ack       <= 1;
           end
           2'b01: begin // corrupted transmit
-            data_out <= fifo[rd_ptr]; // could corrupt if needed
+            data_out <= fifo[rd_ptr];
             ack      <= 1;
           end
           2'b10: begin // retransmit
