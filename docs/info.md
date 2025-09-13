@@ -7,7 +7,7 @@ You can also include images in this folder and reference them in the markdown. E
 512 kb in size, and the combined size of all images must be less than 1 MB.
 -->
 
-## How it works
+##  Design and Functional Verification of Error-Correcting FIFO Buffer with SECDED and ARQ 
 
 The project implements a transmit finite state machine (TX FSM) with a small FIFO buffer to manage data transmission reliably. Incoming data is temporarily stored in the FIFO on a write enable signal, and a read enable signal triggers transmission. The module supports three modes: normal transmission, corrupted transmission, and retransmission. In normal mode, data is sent from the FIFO, the last transmitted data is saved, and an acknowledgment (ack) is raised. In corrupted mode, data is intentionally altered before sending to simulate transmission errors, while still signaling ack. In retransmission mode, the last transmitted data is resent, and a retransmission signal (nack) is raised. This design ensures reliable communication by handling errors and retransmissions, making it suitable for systems where data integrity and flow control are critical.
 
