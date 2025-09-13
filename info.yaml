@@ -1,6 +1,6 @@
 # Tiny Tapeout project information
 project:
-  title:        "FSM Hazard Detection with FIFO + SECDED ECC and ARQ"
+  title:        "Design and Functional Verification of Error-Correcting FIFO Buffer with SECDED and ARQ "
   author:        "Rishi Gowda A, Manjunath , Akshay Urs and Shylashree N, RV College of Engineering, Bengaluru" 
   discord:      ""        # optional
   description:  "FSM-based hazard detector with 4-bit FIFO buffering and lightweight SECDED ECC, providing ACK/NACK handshake."
