@@ -13,7 +13,7 @@ reg wr_en ;
 
    
   reg [7:0] ui_in;
-  
+   reg [7:0] uio_in;
   wire [7:0] uo_out;
   wire [7:0] uio_out;
   wire [7:0] uio_oe;
