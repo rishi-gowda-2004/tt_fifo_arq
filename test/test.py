@@ -32,37 +32,51 @@ async def test_fifo_fsm(dut):
     # -------------------------
     wr_data = [0x0, 0xA, 0x3, 0x2]
     for d in wr_data:
-        dut.ui_in.value = (1 << 7) | (0 << 6) | (d << 2) | 0b00  # wr_en=1, rd_en=0, data, err_mode=00
+        dut.ui_in.value = (1 << 7) | (0 << 6) | (d << 2) | 0b00  # wr_en=1, rd_en=0
         await RisingEdge(dut.clk)
     dut.ui_in.value = 0
     await RisingEdge(dut.clk)
 
     # -------------------------
-    # Normal read (ack expected)
+    # Normal read (ack=1, nack=0)
     # -------------------------
     dut.ui_in.value = (0 << 7) | (1 << 6) | (0x0 << 2) | 0b00
     await RisingEdge(dut.clk)
+    dut._log.info(f"Normal read uo_out={dut.uo_out.value.binstr}")
+    assert dut.uo_out.value[7] == 1, "Ack should be 1 on normal read"
+    assert dut.uo_out.value[6] == 0, "Nack should be 0 on normal read"
     dut.ui_in.value = 0
     await RisingEdge(dut.clk)
 
     # -------------------------
-    # Corrupted read (nack expected)
+    # Corrupted read (ack=1, nack=0)
     # -------------------------
     dut.ui_in.value = (0 << 7) | (1 << 6) | (0x0 << 2) | 0b01
     await RisingEdge(dut.clk)
+    dut._log.info(f"Corrupted read uo_out={dut.uo_out.value.binstr}")
+    assert dut.uo_out.value[7] == 1, "Ack should still be 1 for corrupted read"
+    assert dut.uo_out.value[6] == 0, "Nack should be 0 on corrupted read"
     dut.ui_in.value = 0
     await RisingEdge(dut.clk)
 
     # -------------------------
-    # Retransmission test (nack then ack)
+    # Retransmission (ack=0, nack=1)
     # -------------------------
     dut.ui_in.value = (0 << 7) | (1 << 6) | (0x0 << 2) | 0b10
     await RisingEdge(dut.clk)
+    dut._log.info(f"Retransmission uo_out={dut.uo_out.value.binstr}")
+    assert dut.uo_out.value[7] == 0, "Ack should be 0 on retransmission"
+    assert dut.uo_out.value[6] == 1, "Nack should be 1 on retransmission"
     dut.ui_in.value = 0
     await RisingEdge(dut.clk)
 
+    # -------------------------
+    # Back to good transmission (ack=1)
+    # -------------------------
     dut.ui_in.value = (0 << 7) | (1 << 6) | (0x0 << 2) | 0b00
     await RisingEdge(dut.clk)
+    dut._log.info(f"Good read after retransmission uo_out={dut.uo_out.value.binstr}")
+    assert dut.uo_out.value[7] == 1, "Ack should be 1 again"
     dut.ui_in.value = 0
     await RisingEdge(dut.clk)
 
@@ -73,6 +87,7 @@ async def test_fifo_fsm(dut):
     for e in err_modes:
         dut.ui_in.value = (0 << 7) | (1 << 6) | (0x0 << 2) | e
         await RisingEdge(dut.clk)
+        dut._log.info(f"Extra read (err_mode={e:02b}) uo_out={dut.uo_out.value.binstr}")
         dut.ui_in.value = 0
         await RisingEdge(dut.clk)
 
