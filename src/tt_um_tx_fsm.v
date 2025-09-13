@@ -34,11 +34,13 @@ module tt_um_tx_fsm (
  reg                   ack;
  reg                   nack;
 
-    assign ui_in[7]=wr_en;
-    assign ui_in[6]=rd_en;
-    assign ui_in[5:2] = data_in;
-    assign ui_in[1:0] = err_mode;
-    assign uo_out[1:0] = 2'b00;
+   assign wr_en    = ui_in[7];
+assign rd_en    = ui_in[6];
+assign data_in  = ui_in[5:2];
+assign err_mode = ui_in[1:0];
+
+    
+   // assign uo_out[1:0] = 2'b00;
     
     
     // FIFO storage
@@ -94,8 +96,10 @@ module tt_um_tx_fsm (
             end
         end
     end
-    assign ack = uo_out[7] ;
-    assign nack = uo_out [6];
-    assign data_out = uo_out [5:2];
+   assign uo_out[7]   = ack;
+assign uo_out[6]   = nack;
+assign uo_out[5:2] = data_out;
+assign uo_out[1:0] = 2'b00;   // unused bits
+
 endmodule
     
