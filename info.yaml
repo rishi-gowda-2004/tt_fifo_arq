@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
 # TinyTapeout project information
 
-yaml_version: 2
+yaml_version: 6
 
 project:
   name: "FSM Hazard Detection with ECC"
