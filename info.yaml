@@ -5,7 +5,7 @@ project:
   discord:      ""        # optional
   description:  "FSM-based hazard detector with 4-bit FIFO buffering and lightweight SECDED ECC, providing ACK/NACK handshake."
   language:     "Verilog"
-  clock_hz:     50000000   # 50 MHz TinyTapeout default clock
+  clock_hz:     10 # 50 MHz TinyTapeout default clock
 
   # How many tiles your design occupies? A single tile is about 160x100 uM
   tiles: "1x1"
