@@ -5,7 +5,7 @@ module tb ();
    
   reg clk;
   reg rst_n;
-  reg ena;
+ 
 reg wr_en ;
    reg rd_en;
    reg [3:0] data_in;
