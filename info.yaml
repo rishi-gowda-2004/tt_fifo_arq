@@ -4,6 +4,7 @@
 yaml_version: 6
 
 project:
+  title: "FSM Hazard Detection"
   name: "FSM Hazard Detection with ECC"
   author: "Rishi Gowda"
   description: |
