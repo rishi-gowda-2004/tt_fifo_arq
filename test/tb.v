@@ -18,15 +18,16 @@ module tb ();
   wire [7:0] uio_oe;
   reg ena;
 
+  // Power pins for GL sims
   wire VPWR = 1'b1;
   wire VGND = 1'b0;
 
-  // ✅ Fix: ui_in is a wire, not reg, and is driven from testbench signals
+  // ✅ Fix: ui_in is a wire, driven by TB signals
   assign ui_in = {wr_en, rd_en, data_in, err_mode};
    
   // Instantiate DUT
   tt_um_tx_fsm user_project (
-    `ifdef GL_TEST
+    `ifdef USE_POWER_PINS   // ✅ FIX: match DUT wrapper
       .VPWR(VPWR),
       .VGND(VGND),
     `endif
@@ -50,19 +51,18 @@ module tb ();
   initial begin
     $dumpfile("tb.vcd");
     $dumpvars(0, tb);
-    #1;
   end
 
   // Stimulus
   initial begin
     // init
-    ena    = 1;
-    uio_in = 8'h00;
-    rst_n  = 0;
-    wr_en  = 0; 
-    rd_en  = 0; 
-    data_in= 0; 
-    err_mode = 0;
+    ena     = 1;
+    uio_in  = 8'h00;
+    rst_n   = 0;
+    wr_en   = 0; 
+    rd_en   = 0; 
+    data_in = 0; 
+    err_mode= 0;
 
     // Release reset
     #12 rst_n = 1;
