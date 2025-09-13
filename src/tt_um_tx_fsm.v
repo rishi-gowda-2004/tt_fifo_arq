@@ -26,13 +26,13 @@ module tt_um_tx_fsm (
 
  parameter DATA_WIDTH = 4, DEPTH = 4;
 
- wire                  wr_en,
- wire                  rd_en,
- wire [DATA_WIDTH-1:0] data_in,
- wire [1:0]            err_mode, // 00: no error, 01: corrupted, 10: retransmit
- reg  [DATA_WIDTH-1:0] data_out,
- reg                   ack,
- reg                   nack
+ wire                  wr_en;
+ wire                  rd_en;
+    wire [DATA_WIDTH-1:0] data_in;
+    wire [1:0]            err_mode;         // 00: no error, 01: corrupted, 10: retransmit
+    reg  [DATA_WIDTH-1:0] data_out;
+ reg                   ack;
+ reg                   nack;
 
     assign ui_in[7]=wr_en;
     assign ui_in[6]=rd_en;
