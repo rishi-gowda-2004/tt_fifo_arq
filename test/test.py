@@ -76,8 +76,10 @@ async def test_fifo_fsm(dut):
         dut.ui_in.value = 0
         await RisingEdge(dut.clk)
 
+    # -------------------------
     # Final check
-    dut._log.info(f"Final uo_out={dut.uo_out.value}")
+    # -------------------------
+    dut._log.info(f"Final uo_out={dut.uo_out.value.binstr}")
     assert dut.uo_out.value is not None, "uo_out is not driven!"
 
     dut._log.info("Test completed successfully ✅")
