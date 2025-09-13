@@ -1,11 +1,11 @@
 # Tiny Tapeout project information
 project:
-  title:        "FSM Hazard Detection with FIFO + SECDED ECC (4-bit Optimized)"
-  author:       "Rishi Gowda"
+  title:        "FSM Hazard Detection with FIFO + SECDED ECC and ARQ"
+  author:        "Rishi Gowda A, Manjunath , Akshay Urs and Shylashree N, RV College of Engineering, Bengaluru" 
   discord:      ""        # optional
   description:  "FSM-based hazard detector with 4-bit FIFO buffering and lightweight SECDED ECC, providing ACK/NACK handshake."
   language:     "Verilog"
-  clock_hz:     10 # 50 MHz TinyTapeout default clock
+  clock_hz:     10      # Clock frequency in Hz (or 0 if not applicable)
 
   # How many tiles your design occupies? A single tile is about 160x100 uM
   tiles: "1x1"
