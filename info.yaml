@@ -14,7 +14,7 @@ project:
   license: "Apache-2.0"
   language: "Verilog"
   top_module: "tt_um_fsmhaz"
-  tiles: 1  # number of tiles your design will occupy
+  tiles: 1*1 # number of tiles your design will occupy
 
 io:
   # ui_in (dedicated inputs)
